@@ -1,0 +1,40 @@
+import React from 'react';
+import { Card } from 'react-bootstrap';
+import Rating from './Rating'
+const Product = (props) => {
+	const product = props.obj;
+	return (
+		<Card className="my-3 p-3 rounded">
+			<a href={`/product/${product.id}`}>
+				<div className="mx-3 my-3 p-3">
+					<Card.Img src={product.image} variant='top' />
+				</div>
+			</a>
+			<Card.Body>
+				<a href={`/product/${product.id}`}>
+					<Card.Title as='div'><strong>
+						{
+							product.tile
+						}
+					</strong></Card.Title>
+				</a>
+			</Card.Body>
+
+			<Card.Text as='div'>
+				<Rating value={product.rating} text={`${product.numReviews} reviews`}></Rating>
+			</Card.Text>
+
+			<Card.Text as='h3'>
+				<div className="my-3">
+					$ {
+						product.price
+					}
+				</div>
+			</Card.Text>
+
+		</Card>
+
+	);
+};
+
+export default Product;
