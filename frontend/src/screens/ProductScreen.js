@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from '../Components/Rating'
-import products from '../products'
+import './screen.css'
 
 const ProductScreen = ({ match }) => {
 	console.log(match.params.id)
-	const product = products.find((p) => p.id == match.params.id)
-	console.log(product)
+	
+	const id = match.params.id;
+	const url = `http://localhost:5000/api/products/${id}`;
+	console.log(url)
+	const [product, setProduct] = useState([]);
+	useEffect(()=>{
+		fetch(url).then(data => data.json()).then(prod => setProduct(prod))
+	},[url])
+
 
 	return (
 		<>
@@ -16,8 +23,8 @@ const ProductScreen = ({ match }) => {
 			</Link>
 
 			<Row>
-				<Col md={6}>
-					<Image src={product.image} fluid />
+				<Col md={6} id = "image_container">
+					<Image src={product.image} id = "prod_image" />
 				</Col>
 
 				<Col md={3}>
