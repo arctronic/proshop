@@ -13,7 +13,7 @@ const styles = {
 	},
 	cardImage: {
 	  objectFit: 'cover',
-	  borderRadius: 55
+	  borderRadius: 20
 	}
   }
 

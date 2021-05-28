@@ -2,15 +2,18 @@ import  express from 'express'
 import  dotenv from 'dotenv'
 import cors  from 'cors'
 import  products from './Data/products.js'
+import connectDB from './config/db.js'
 
 dotenv.config()
+
+connectDB()
 
 const app = express()
 app.use(cors())
 
 const PORT = process.env.PORT || 1562
 
-app.listen(5000, console.log(`Server running on port ${PORT}`))
+app.listen(5000, console.log(`Server running on port ${PORT}`.yellow.bold))
 
 app.get('/',(req,res)=>{
 	res.send("API is ruinning")
