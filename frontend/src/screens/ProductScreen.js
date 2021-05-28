@@ -17,7 +17,7 @@ const ProductScreen = ({ match }) => {
 
 
 	return (
-		<>
+		<div >
 			<Link className='btn btn-light my-3' to='/'>
 				Go back
 			</Link>
@@ -86,8 +86,12 @@ const ProductScreen = ({ match }) => {
 				</Col>
 
 			</Row>
-
-		</>
+			<Row>
+			<Link className='btn btn-light my-3' to='/'>
+			<i class="fas fa-arrow-circle-left" id ="back"></i>
+			</Link>			
+			</Row>
+		</div>
 	);
 };
 

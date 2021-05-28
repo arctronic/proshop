@@ -6,3 +6,12 @@
 #image_container{
 	text-align: center;
 }
+
+#product_page{
+	height: 100%;
+}
+
+#back{
+	font-size: 2em;
+	color: black;
+}

@@ -1,11 +1,16 @@
-const express = require('express')
-const cors = require('cors')
-const products = require('./Data/products')
+import  express from 'express'
+import  dotenv from 'dotenv'
+import cors  from 'cors'
+import  products from './Data/products.js'
+
+dotenv.config()
 
 const app = express()
 app.use(cors())
 
-app.listen(5000, console.log("Server running on port 5000"))
+const PORT = process.env.PORT || 1562
+
+app.listen(5000, console.log(`Server running on port ${PORT}`))
 
 app.get('/',(req,res)=>{
 	res.send("API is ruinning")
