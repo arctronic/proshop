@@ -22,7 +22,7 @@ const Product = (props) => {
 	const product = props.obj;
 	return (
 		<Card className="my-3 p-3 rounded">
-			<Link to={`/product/${product.id}`}>
+			<Link to={`/product/${product._id}`}>
 				<div className="mx-2 my-2 p-3" id="image_box">
 					<Card.Img src={product.image} variant='top' style={styles.cardImage} />
 				</div>

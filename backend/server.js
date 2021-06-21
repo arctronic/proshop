@@ -1,32 +1,34 @@
-import  express from 'express'
-import  dotenv from 'dotenv'
-import cors  from 'cors'
-import  products from './Data/products.js'
+import express from 'express'
+import dotenv from 'dotenv'
+import cors from 'cors'
+import { notFound, errorHandler } from './middleware/errorMiddleWare.js'
 import connectDB from './config/db.js'
+import productRoute from './routes/productRoutes.js'
 
 dotenv.config()
-
-connectDB()
-
 const app = express()
 app.use(cors())
 
-const PORT = process.env.PORT || 1562
+connectDB()
 
-app.listen(5000, console.log(`Server running on port ${PORT}`.yellow.bold))
+const PORT = process.env.PORT || 5000
 
-app.get('/',(req,res)=>{
+
+
+app.use('/api/products', productRoute)
+
+app.get('/', (req, res) => {
 	res.send("API is ruinning")
 })
 
-app.get('/api/products',(req,res)=>{
-	console.log("Sending all products");
-	res.json(products)
-})
+app.use(notFound)
 
-app.get('/api/products/:id',(req,res)=>{
-	const product = products.find((p)=>p.id == req.params.id);
-	console.log("Called");
-	console.log(product.title);
-	res.json(product)
-})
+app.use(errorHandler)
+
+
+
+app.listen(5000, console.log(`Server running on port ${PORT}`.yellow.bold))
+
+
+
+
