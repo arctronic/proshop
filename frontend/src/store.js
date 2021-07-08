@@ -1,11 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunkMiddleware  from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
+import { productListReducer,productDetailsReducer } from './reducers/productReducers'
 
-const reducer = combineReducers({})
+
+const reducer = combineReducers({
+	productList : productListReducer,
+	productDetails: productDetailsReducer,
+})
 const initialState = {}
-const middleware = [thunkMiddleware ]
+const middleware = [thunkMiddleware]
 const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
 
 export default store

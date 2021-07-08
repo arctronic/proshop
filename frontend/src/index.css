@@ -10,3 +10,9 @@ h3{
   margin: 0.1rem;
 }
 
+*{
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}

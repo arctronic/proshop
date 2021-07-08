@@ -1,7 +1,11 @@
-#image_box{
-	background-color: aliceblue;
+#image_box {
+    background-color: #fff;
 }
 
-#text_title{
-	text-decoration: none;
+#text_title {
+    text-decoration: none;
+}
+
+#carder {
+    object-fit: cover;
 }
