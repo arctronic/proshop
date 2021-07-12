@@ -96,22 +96,18 @@ const ProductScreen = ({ history, match }) => {
                 {product.countInStock > 0 && (
                   <ListGroup.Item>
                     <Row>
-                      <Col> Qty </Col>
+                      <Col className="qty"> Qty </Col>
                       <Col>
                         <Form.Control
                           type="number"
-                          min={0}
+                          min={1}
                           max={product.countInStock}
                           value={qty}
                           onChange={(e) => {
-                            setQty(parseInt(e.target.value) + 1);
-                            console.log(qty);
+                            setQty(parseInt(e.target.value));
+                  
                           }}
                         >
-                          
-                          {/* {[...Array(product.countInStock).keys()].map(x => (
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <option key={x+1} value={x+1}>{x+1}</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ))} */}
                         </Form.Control>
                       </Col>
                     </Row>
