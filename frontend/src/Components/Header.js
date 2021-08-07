@@ -1,34 +1,66 @@
-import React from 'react';
-import '../bootstrap.min.css';
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import React from "react";
+import "../bootstrap.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { logout } from "../actions/userAction";
 const Header = () => {
-	return (
-		<header>
-			<Navbar bg='dark' variant='dark' expand="lg" CollapseOnSelect>
-				<Container>
-					<LinkContainer to='/'>
-						<Navbar.Brand >Proshop</Navbar.Brand>
-					</LinkContainer>
+  
+	const dispatch = useDispatch()
+  	const userlogin = useSelector((state) => state.userLogin);
+  	const { userInfo } = userlogin;
+  	const logOutHandler = () =>{
+	 	 dispatch(logout());
+  	}
 
-					<Navbar.Toggle aria-controls="basic-navbar-nav" />
-					<Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-						<Nav >
-							
-							<LinkContainer to='/cart'>
-								<Nav.Link> <i className="fa fa-shopping-cart" aria-hidden="true"></i> Cart</Nav.Link>
-							</LinkContainer>
+  return (
+    <header>
+      <Navbar bg="dark" variant="dark" expand="lg" CollapseOnSelect>
+        <Container>
+          <LinkContainer to="/">
+            <Navbar.Brand>Proshop</Navbar.Brand>
+          </LinkContainer>
 
-							<LinkContainer to='/login'>
-								<Nav.Link ><i className="fa fa-user" aria-hidden="true"></i> Sign In</Nav.Link>
-							</LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Nav>
+              <LinkContainer to="/cart">
+                <Nav.Link>
+                  {" "}
+                  <i
+                    className="fa fa-shopping-cart"
+                    aria-hidden="true"
+                  ></i>{" "}
+                  Cart
+                </Nav.Link>
+              </LinkContainer>
 
-						</Nav>
-					</Navbar.Collapse>
-				</Container>
-			</Navbar>
-		</header>
-	);
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logOutHandler}>
+                    Log Out
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>
+                    <i className="fa fa-user" aria-hidden="true"></i> Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
+
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </header>
+  );
 };
 
 export default Header;
