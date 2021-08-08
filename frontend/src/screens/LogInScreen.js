@@ -54,7 +54,7 @@ const LogInScreen = ({ location, history }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="my-3 rounded">
           Sign In
         </Button>
         <Row className="py-3">

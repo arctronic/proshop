@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../Components/Message";
 import Loader from "../Components/Loader";
-import { register } from "../actions/userAction";
+import { login, register } from "../actions/userAction";
 import FormContainer from "../Components/FormContainer";
 import { red } from "colors";
 
