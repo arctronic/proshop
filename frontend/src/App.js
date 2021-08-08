@@ -9,7 +9,9 @@ import CartScreen from "./screens/CartScreen";
 import LogInScreen from "./screens/LogInScreen";
 import RegScreen from './screens/RegScreen'
 import ProfileScreen from './screens/ProfileScreen'
-
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 const App = () => {
   return (
     <Router>
@@ -17,9 +19,12 @@ const App = () => {
       <main className="p-2">
         <Container>
           <Route path="/product/:id" component={ProductScreen} />
+          <Route path="/payment" component={PaymentScreen}/>
+          <Route path="/placeOrder" component={PlaceOrderScreen}/>
           <Route path="/login" component={LogInScreen} exact/>
           <Route path="/register" component={RegScreen} exact/>
           <Route path="/profile" component={ProfileScreen} exact/>
+          <Route path="/shipping" component={ShippingScreen}/>        
           <Route path="/cart/:id?" component={CartScreen} />
           <Route path="/" component={HomeScreen} exact />
         </Container>
