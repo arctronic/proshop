@@ -52,7 +52,7 @@ const CartScreen = ({match,location,history}) => {
                                             </Col>
                                             
                                             <Col md={3} className="col">
-                                                <Link to={`/product/${item.product}`}> {item.name}</Link>
+                                                <Link to={`/product/${item.product}`} style={{ textDecoration: 'none' }}> {item.name}</Link>
                                             </Col>
 
                                             <Col md={2} className="col" variant="light"><strong>${item.price}</strong></Col>
