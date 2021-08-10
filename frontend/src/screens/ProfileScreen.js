@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../Components/Message";
 import Loader from "../Components/Loader";
 import { getUserDetails, updateUserProfile } from "../actions/userAction";
+import { listMyOrder } from "../actions/orderActions"
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -23,12 +24,17 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+
+  const userOrders = useSelector((state) => state.orderMyList);
+  const { loading: loadingOrders, error: errorOrders, orders } = userOrders;
+
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     } else {
       if (!user.name) {
         dispatch(getUserDetails("profile"));
+        dispatch(listMyOrder())
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -104,6 +110,32 @@ const ProfileScreen = ({ location, history }) => {
 
       <Col md={9}>
         <h2>Orders</h2>
+        {loadingOrders? <Loader/>: errorOrders?<Message variant="danger">{errorOrders}</Message>:(
+          <Table striped bordered hover responsive className='table-sm'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th>DETAILS</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                orders.map(item=>(
+                  <tr key={item._id}>
+                    <td><Link to={`/order/${item._id}`} style={{textDecoration:"none"}}> {item._id}</Link></td>
+                    <td>{item.totalPrice}</td>
+                    <td>{item.isPaid?"Paid":"Not Paid"}</td>
+                    <td>{item.isDelivered?"Delivered":"Not Delivered"}</td>
+                    <td>{item.paymentMethod}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </Table>
+        )}
       </Col>
     </Row>
   );
