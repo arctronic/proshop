@@ -5,14 +5,13 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import { logout } from "../actions/userAction";
 const Header = () => {
-  
-	const dispatch = useDispatch()
-  	const userlogin = useSelector((state) => state.userLogin);
-  	const { userInfo } = userlogin;
-  	const logOutHandler = () =>{
-	 	 dispatch(logout());
-  	}
-
+  const dispatch = useDispatch();
+  const userlogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userlogin;
+  const logOutHandler = () => {
+    dispatch(logout());
+  };
+  console.log("userInfo", userInfo);
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" CollapseOnSelect>
@@ -46,6 +45,11 @@ const Header = () => {
                   <NavDropdown.Item onClick={logOutHandler}>
                     Log Out
                   </NavDropdown.Item>
+                  {userInfo.isAdmin && (
+                    <LinkContainer to="/admin/userlist">
+                      <NavDropdown.Item>User List</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
@@ -54,7 +58,6 @@ const Header = () => {
                   </Nav.Link>
                 </LinkContainer>
               )}
-
             </Nav>
           </Navbar.Collapse>
         </Container>
