@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../Components/Message";
 import Loader from "../Components/Loader";
-import { getOrderDetails } from "../actions/orderActions";
+import { getOrderDetails, deliverOrder } from "../actions/orderActions";
+import { ORDER_DELIVER_RESET } from "../constants/orderConst";
 
 const OrderScreen = ({ match }) => {
   const orderID = match.params.id;
@@ -12,12 +13,28 @@ const OrderScreen = ({ match }) => {
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
+
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { loading: loadingDeliver, success: sucessDeliver } = orderDeliver;
+
   console.log(order);
   useEffect(() => {
     dispatch(getOrderDetails(orderID));
-  }, [orderID, dispatch]);
+    if(sucessDeliver){
+      dispatch({type: ORDER_DELIVER_RESET});
+      dispatch(getOrderDetails(orderID))
+    }
+  }, [orderID, dispatch,sucessDeliver]);
 
   console.log("From OrderScreeen", order);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order));
+  };
   return loading ? (
     <Loader />
   ) : error ? (
@@ -50,7 +67,7 @@ const OrderScreen = ({ match }) => {
 
               {order.isDelivered ? (
                 <Message variant="success">
-                  Delivered at {order.deliveredAt}
+                  Delivered at {order.deliveredAt.split('T')[0]}
                 </Message>
               ) : (
                 <Message variant="danger">Not Delivered</Message>
@@ -63,7 +80,7 @@ const OrderScreen = ({ match }) => {
                 <strong>{order.paymentMethod}</strong>
               </p>
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">Paid on {order.paidAt.split('T')[0]}</Message>
               ) : (
                 <Message variant="danger">Not paid</Message>
               )}
@@ -143,16 +160,18 @@ const OrderScreen = ({ match }) => {
                 {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item> */}
               <ListGroup.Item>
-                <Row>
-                  {/* <Button
-                    type="button"
-                    className="btn-block rounded"
-                    disabled={order.orderItems.lenght === 0}
-                    onClick={placeOrder}
-                  >
-                    Place Order
-                  </Button> */}
-                </Row>
+                {userInfo.isAdmin && (
+                  <Row>
+                    <Button
+                      type="button"
+                      className="btn-block rounded"
+                      disabled={order.orderItems.lenght === 0}
+                      onClick={deliverHandler}
+                    >
+                      Delivered
+                    </Button>
+                  </Row>
+                )}
               </ListGroup.Item>
             </ListGroup>
           </Card>

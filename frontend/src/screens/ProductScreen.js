@@ -52,8 +52,8 @@ const ProductScreen = ({ history, match }) => {
             Go back
           </Link>
           <Row style={styles}>
-            <Col md={6} id="image_container">
-              <Image src={product.image} id="prod_image" />
+            <Col md={6}  >
+              <Image src={product.image} alt={product.title} style={{maxHeight:"400px"}} fluid/>
             </Col>
             <Col md={3}>
               <ListGroup variant="flush">
